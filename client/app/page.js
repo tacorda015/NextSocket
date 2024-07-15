@@ -44,10 +44,14 @@ export default function Home() {
     useEffect(() => {
         if (!chart) return;
 
+        const data = dataType === 'SMT' ? dataSMT : dataDIP;
+        const lineNames = data.map(item => item.lineName);
+        const outputs = data.map(item => item.output);
+
         const option = {
             xAxis: {
                 type: 'category',
-                data: dataType === 'SMT' ? dataSMT.map(item => item.date) : dataDIP.map(item => item.date),
+                data: lineNames,
                 axisLabel: {
                     rotate: 45
                 }
@@ -56,7 +60,7 @@ export default function Home() {
                 type: 'value'
             },
             series: [{
-                data: dataType === 'SMT' ? dataSMT.map(item => item.output) : dataDIP.map(item => item.output),
+                data: outputs,
                 type: 'bar'
             }]
         };
